@@ -1,0 +1,594 @@
+AJAX_VALIDACION.JS
+
+//validacion de usuario en la BD
+
+$('#nick').change(function(){
+	   $.post('validacion_ajax_nick.php',{ 
+	   	nick:$('#nick').val(),
+	   	beforeSend :function(){
+	   		$('.validacion').html("Espere un momento...");
+	   	}
+	   }, function (respuesta){
+	   	$('.validacion').html(respuesta);
+	   });
+	});
+
+
+
+
+
+//validacion de email en BD
+
+$('#email').change(function(){
+	   $.post('validacion_ajax_email.php',{ 
+	   	email:$('#email').val(),
+	   	beforeSend :function(){
+	   		$('.validacionemail').html("Espere un momento, validando email");
+	   	}
+	   }, function (respuesta){
+	   	$('.validacionemail').html(respuesta);
+	   });
+	});
+
+CONEXION.PHP
+
+<?php
+$con =new mysqli('localhost','root','','inmobiliaria');
+// $link =new mysqli('localhost','usuario','clave1','bd_prueba2');
+?>
+
+CONTACTO.CSS
+
+.contacto{margin:20px auto; width: 300px;padding: 30px 25px; background: #04B4AE; border: 1px solid yellow;}
+label{color:white;}
+
+FOOTER.PHP
+
+<script src="https://use.fontawesome.com/4b1b2ae87c.js"></script>
+	<footer>
+		<div class="container" style="background: gray;">
+			<div class="row">
+				<div class="col-md-6" style="">
+					<input type="email" placeholder="Ingresa Email"
+					required="true">
+					<a href="#"><button type="button" class="btn btn-success">Enviar</button></a>
+				</div>
+				<div class="col-md-6" >
+					<ul>
+						<a href="http://www.facebook.com"><img src="#" alt="Facabook"><i class="fa fa-facebook x2" 
+						aria-hidden="true"></i></a>
+						
+						<img src="#" alt="Instagram">
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+</body>
+</html>
+
+HEADER.PHP
+
+<?php
+include '../config/conexion.php';
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../css/bootstrap.css">
+  <link rel="stylesheet" href="../css/contacto.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.css">
+
+  <title>Proyecto</title>
+</head>
+<body>
+
+<main>
+<?php include 'menu_admin.php'; ?>
+<?php include 'scripts.php'; ?>
+
+MENU_ADMIN.PHP
+
+ <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Inicio <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="contacto.php">Contacto</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="login.php">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="../vistas/registro.php">Registro</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav> 
+
+SCRIPTS.PHP
+
+
+<script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/6.6.9/sweetalert2.js"></script>
+
+DB_CONECT.PHP
+
+<?php
+include_once 'psl-config.php'; // ya que functions.php no esta incluido
+$mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
+
+VALIDAR.JS
+
+//validacion de usuario en la BD
+$('#nick').change(function(){
+	   $.post('validacion_ajax_nick.php',{ 
+	   	nick: $('#nick').val(),
+	   	beforeSend :function(){
+	   		$('.validacion').html("Espere un momento...");
+	   	}
+	   }, function (respuesta){
+	   	$('.validacion').html(respuesta);
+	   });
+	});
+
+
+
+
+
+//validacion de email en BD
+
+$('#email').change(function(){
+		$.post('validacion_ajax_email.php',{
+			email:$('#email').val(),
+			beforeSend: function(){
+				$('.validaemail').html("Espere un momento, estamos validando");
+			}
+		}, function(respuesta){
+			$('.validacionemail').html(respuesta);
+
+
+		});
+	});
+
+ // revisar si contraseñas son iguales
+
+ $('#pass2').change(function(event){
+	if($('#pass1').val() === $('#pass2').val()){
+ 		swal('Bien socio...','Las contraseñas coinciden','success')
+ 		$('#btn-ingresar').show();
+ 	}else{
+		swal('Upss...', 'Las contraseñas No coinciden','error')
+	$('#btn-ingresar').hide();
+	}
+});
+
+ // Desabilitar boton enter
+
+ 	$('.form').keypress(funtion(e){
+ 		if(e.which == 13){
+			return false;
+ 		}
+});
+
+BIENVENIDA.PHP
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Bienvenido al Programa</title>
+</head>
+<body>
+	
+</body>
+
+CONTACTO.PHP
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/contacto.css">
+	<title>Contacto</title>
+</head>
+<body>
+	<header>
+		<?php require '../inc/header.php' ?>
+	</header>
+	<section>
+		<form class="contacto">
+  <div class="form-group">
+  <label for="exampleFormControlInput1">Email:</label>
+  <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+  </div>
+
+   <div class="form-group">
+    <label for="exampleFormControlSelect1">Motivo:</label>
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>Sugerencia</option>
+      <option>Reclamo</option>
+      <option>Consulta</option>
+      <option>FELICITACIONES</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="exampleFormControlTextarea1">Mensaje:</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Deja tu mensaje"></textarea>
+  </div>
+  <a href="#"><button type="button" class="btn btn.primary">Enviar</button></a>
+
+  <a href="index.php">
+  <button type="button" class="btn btn_secondary">Volver</button>
+  </a>
+</form>
+	</section>
+
+	<footer>
+		<?php require '../inc/footer.php' ?>
+	</footer>
+</body>
+</html>
+
+INDEX.PHP
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8"> 
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<title>Inicio</title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<script src="https://use.fontawesome.com/4b1b2ae87c.js"></script>
+</head>
+<body>
+	<header>
+		<?php require '../inc/header.php' ?>
+	</header>
+	<section>
+		<article>
+			<div class="jumbotron" style="text-align: center; background: lightblue;">
+  <h1 class="display-3">Hello, world!</h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <a href="registro.php">link</a>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+  </p>
+</div>
+		</article>
+	</section>
+	<footer>
+		<?php require '../inc/footer.php' ?>
+	</footer>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	
+	<script src="js/bootstrap.min.js"></script>
+</body>
+</html>
+
+INGRESO_USUARIO.PHP
+
+<?php
+include_once("../config/conexion.php");
+
+$email = $con->real_escape_string(htmlentities($_POST['email']));
+$pass = $con->real_escape_string(htmlentities($_POST['pass']));
+
+if ($_SERVER['REQUEST_METHOD']==='POST') { 
+   $reqlen=strlen($email)+strlen($pass);
+    if ($reqlen >0) {
+      include_once("../config/conexion.php");
+      $pass= sha1($pass);
+
+      $sel= $con ->query("SELECT correo, pass FROM usuario WHERE correo ='$email' AND pass ='$pass'");
+
+      $row = mysqli_num_rows($sel);
+
+      if($row !=0)
+      {
+        header('Location: bienvenid.php');
+      }
+      else
+      {
+          header('Location: login.php');
+      }
+      }else{
+        echo "<label style:'color:red'>  favor, ingresa campos requeridos!</label>";
+      }
+    }
+
+?>
+   
+INS_USUARIO.PHP
+
+<?php
+require '../config/conexion.php';
+
+if ($_SEVER ['REQUEST_METHOD']==='POST') {
+  $nick = $con->real_escape_string(htmlentities($_POST['nick']);)
+  $pass = $con->real_escape_string(htmlentities($_POST['pass1']);)
+  $email = $con->real_escape_string(htmlentities($_POST['email']);)
+  $nombre= $con->real_escape_string(htmlentities($_POST['nombre']);)
+  $nivel = $con->real_escape_string(htmlentities($_POST['nivel']);)
+  $pass2 = $con->real_escape_string(htmlentities($_POST['pass2']);)
+  $bloqueo= 1;
+
+  $reqlen=strlen($nick)+strlen($email)+strlen($pass);
+    if ($reqlen >0){
+    	if($pass===$pass2){
+    		include ("../config/conexion.php");
+    		$pass= sha1($pass);
+    	}
+    }
+
+
+// if (!(empty($nick) || empty($pass1) || empty($email)) || empty ($nombre) ) {
+// 	  if($pass1===$pass2) {
+// 	  	include ("../config/conexion.php");
+// 	  	$pass1= sha1($pass1);
+mysqli_query($con,"INSERT INTO usuario VALUES('','$nick','$nombre','$email','$pass','$nivel1','$bloqueo')");
+mysqli_close($con);
+echo "<label style:'color:green'> Se registro con exito!</label>";
+	}else{
+		echo "<label style:'color:red'>  favor, ingresa las contraseñas iguales!</label>";
+	  }
+
+
+}else{
+	echo "<label style:'color:red> favor, ingresa campos requeridos!</label";
+
+}
+}else{
+	header('Location: index.php');
+}
+
+
+	// echo "Hay un campo vacio";
+	// exit;
+}
+// if(ctype_alpha($nick)){
+// 	echo "nick no tiene letras";
+// 	exit;
+// }
+
+
+
+
+
+
+
+
+
+}
+
+
+
+?>
+
+LOGIN.PHP
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/contacto.css">
+	<title>Login</title>
+</head>
+<body>
+<header>
+    <?php require '../inc/header.php' ?>
+  </header>
+	<section>
+		<article>
+
+			<form class="contacto" method="POST" style="background: whiteblue;">
+			  <div class="form-group">
+    		 <label for="email">Email:</label>
+    <input type="email" class="form-control" name="email" placeholder="name@example.com">
+  </div>
+
+  <div class="form-group">
+    		<label for="pass">Pass :</label>
+    <input type="password" class="form-control" id="pass" name="pass" placeholder="Password">
+  </div>
+      <input type="submit" name="submit" value="Ingreso">
+  
+  <!-- <button type="button" class="btn btn-secondary">Ingresar</button> -->
+   <a href="registrarse.php">Registrarse</a>
+   <a href="rindex.php">Volver</a>
+
+   <?php
+   if (isset($_POST['submit'])) {
+    require ("ingreso_usuario.php");
+  }
+
+  ?>
+
+			</form>
+  		</article>
+	</section>
+</body>
+</html>
+
+
+
+REGISTRO.PHP
+
+<?php include '../inc/header.php'; ?>
+	<form class="contacto" method="post" style="background:whiteblue;">
+		<h3 style="text-align: center;">REGISTRO</h3>
+		 <div class="form-group">
+		 	<label for="nick">Nick :</label>
+		 	<input type="text" class="form-control" id="nick" placeholder="Nick" title="DEBE CONTENER ENTRE 8 Y 15 CARACTERES, SOLO LETRAS" onblur="mayus(this.value, this.id)">
+		 </div>
+		 <div class="validacion">
+
+		 </div>
+
+		 <div class="form-group">
+		 	<label for="pass1">Contraseña :</label>
+		 	<input type="password" name="pass1"  id="pass1" required="true" placeholder="Contraseña">
+		 </div>
+
+		 <div class="form-group">
+		 	<label for="nombre">Nombre:</label>
+		 	<input type="text" name="nombre"  id="pass2" required="FALSE"                       placeholder="Nombre">
+		 </div>
+		 <div class="form-group">
+		 	<label for="pass2">Repite Contaseña :</label>
+		 	<input type="password" name="pass2"  id="pass2" required="true"                       placeholder="Repite Contraseña">
+		 </div>
+
+		 <select name="nivel" id="" requiered="true">
+		 	<option value="" disabled selected>Elige un nivel de usuario:</option>
+		 	<option value="ADMINISTRADOR">ADMINISTRADOR</option>
+		 	<option value="USUARIO">USUARIO</option>
+
+		</select>
+
+		 <div class="form-group">
+		 	<label for="email">Email :</label>
+		 	<input type="email" class="form-control" id="email" placeholder="name@example.com" name="email"  >
+
+		 <div class="validacionemail">
+
+		 </div>
+
+        <input type="submit" value="registro">
+		 <a href="#"><button type="button" class="btn btn-secondary" id="btn-ingresar">Ingresar</button></a -->
+		 <input type="submit" name="submit" value="registrarme">
+
+
+
+		 
+
+		 <!--<a href="login.php"><button type="button" class="btn btn-secondary" id="btn-ingresar">Ya tienes cuenta?</button></a> -->
+		 <!-- <a href="index.php"><button type="button" class="btn btn-secondary" id="btn-ingresar">Volver</button></a> -->
+		 <?php
+		if(isset($_POST['submit'])){
+			require("ins_usuario.php");
+		}
+		?>
+		 			</form>
+
+<?php include '../inc/scripts.php'; ?>
+<!-- <script src="../js/validar.js"></script> -->
+ <script src="../ajack/ajax_validacion.js"></script>
+
+ <script>
+ 	// deja en mayusculas los campos que se indiquen
+
+function mayus(obj, id ){
+ 	obj = obj.toUpperCase();
+ 	document.getElementById(id).value = obj;
+ }
+ </script>
+</body>
+</html>
+
+
+VALIDACION_AJAX:EMAIL.PHP
+
+<?php
+require '../config/conexion.php';
+
+$email = $con ->real_escape_string($_POST['email']);
+
+$sel = $con->query("SELECT correo FROM usuario WHERE correo = '$email'");
+$row = mysqli_num_rows($sel);
+if($row !=0){
+	echo "<label style='color:red'> El nombre de usuario ya existe </label>";
+}else{
+	echo "<label style='color:green'>El nombre de usuario esta disponible </label>";
+}
+$con->close();
+
+?>
+
+VALIDACION_AJAX_NICK.PHP
+
+<?php
+require'../config/conexion.php';
+
+$nick = $con ->real_escape_string($_POST['nick']);
+
+$sel = $con->query("SELECT id FROM usuario WHERE nick = '$nick'");
+$row = mysqli_num_rows($sel);
+if($row !=0){
+	echo "<label style='color:red'> El nombre de usuario ya existe </label>";
+}else{
+	echo "<label style='color:green'>El nombre de usuario esta disponible </label>";
+}
+$con->close();
+
+?>
+
+
+
+
+
+
+
+
+
+
+}
+
+OPCION INGRESO_USUARIO.PHP
+
+<?php
+
+
+
+if ($_SERVER['REQUEST_METHOD']==='POST') { 
+
+  $pass = $con->real_escape_string(htmlentities($_POST['pass']));
+  $email = $con->real_escape_string(htmlentities($_POST['email']));
+
+   $reqlen=strlen($email)+strlen($pass);
+
+    if ($reqlen >0) {
+include_once("../config/conexion.php");
+$pass= sha1($pass);
+$sel= $con ->query("SELECT email, pass FROM usuario WHERE email ='$email' AND pass ='$pass'");
+$row = mysqli_num_rows($sel);
+if($row !=0){
+    header('Location: bienvenida.php');
+
+}
+}else{
+    header('Location: index.php');
+}
+
+}else{
+    echo "<label style:'color:red'>  favor, ingresa campos requeridos!</label>";
+}
+?>
+   
+ 
+
+
+
